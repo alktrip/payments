@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "pago")
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Builder
