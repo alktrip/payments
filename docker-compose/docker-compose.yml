@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0.29
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 200605663*k3p
+      MYSQL_DATABASE: payments
+    ports:
+      - "3306:3306"
+      
+  kafka:
+    image: wurstmeister/kafka:3.0.0
+    restart: always
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9092,OUTSIDE://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_LISTENERS: INSIDE://0.0.0.0:9092,OUTSIDE://0.0.0.0:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_CREATE_TOPICS: "pagos-topic:1:1"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+      - kafka
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/payments
+      SPRING_DATASOURCE_USERNAME: catrip
+      SPRING_DATASOURCE_PASSWORD: 200605663*k3p
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092

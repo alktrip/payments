@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "5350aa84-e018-4b0f-9dbc-eb25b085d475",
+		"name": "Payments",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4010389"
+	},
+	"item": [
+		{
+			"name": "Pagar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"concepto\": \"concepto2 test\",\r\n    \"cantidadProductos\": 3,\r\n    \"cliente\": \"cliente2 test test\",\r\n    \"vendedor\": \"vendedor2 test test\",\r\n    \"monto\": 1.23,\r\n    \"estatusPago\": \"PAGADO\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url-service}}/servicio/pagos/pagar",
+					"host": [
+						"{{url-service}}"
+					],
+					"path": [
+						"servicio",
+						"pagos",
+						"pagar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consulta Pago",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url-service}}/servicio/pagos/consultar/71",
+					"host": [
+						"{{url-service}}"
+					],
+					"path": [
+						"servicio",
+						"pagos",
+						"consultar",
+						"71"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualiza Estatus",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{url-service}}/servicio/pagos/actualizar/7?estatus=PAGADO",
+					"host": [
+						"{{url-service}}"
+					],
+					"path": [
+						"servicio",
+						"pagos",
+						"actualizar",
+						"7"
+					],
+					"query": [
+						{
+							"key": "estatus",
+							"value": "PAGADO"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
